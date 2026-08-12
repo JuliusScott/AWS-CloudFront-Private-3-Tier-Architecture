@@ -185,6 +185,49 @@ The architecture uses Amazon CloudFront as the only public entry point while the
 
 ![AWS CloudFront Private 3-Tier Architecture](architecture-diagram.png)
 
+## Project Evidence
+
+### Static Content Through CloudFront
+
+CloudFront successfully delivered the static website from the Amazon S3 origin.
+
+![Static content validation](screenshots/validation/13-King.png)
+
+### Dynamic Application and RDS Validation
+
+The `/api/time.php` path successfully returned live data from Amazon RDS through the private application tier.
+
+Requests were served by different EC2 instances, demonstrating traffic distribution across the application tier.
+
+![Dynamic validation EC2 instance 1](screenshots/validation/12-ec2a.png)
+
+![Dynamic validation EC2 instance 2](screenshots/validation/12-ec2b.png)
+
+### Private Application Infrastructure
+
+The Application Load Balancer was configured with an **Internal** scheme, preventing direct public access to the application tier.
+
+![Internal ALB](screenshots/validation/11-ALB.png)
+
+The Auto Scaling Group maintained two healthy EC2 instances across the application tier.
+
+![Auto Scaling Group](screenshots/validation/14-ASG.png)
+
+### CloudFront VPC Origin
+
+CloudFront used a deployed VPC origin connected to the internal Application Load Balancer.
+
+![CloudFront VPC Origin](screenshots/validation/05-CloudFront-Orgins.png)
+
+### CloudFront Routing
+
+CloudFront behaviors separated static and dynamic traffic:
+
+- `/api/*` → VPC Origin → Internal ALB
+- Default `*` → Amazon S3
+
+![CloudFront Behaviors](screenshots/validation/07-CloudFront-Path.png)
+
 ## Key Takeaways
 
 - CloudFront can serve as the only public entry point for both static and dynamic content.
