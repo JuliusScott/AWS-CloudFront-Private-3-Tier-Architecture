@@ -237,4 +237,15 @@ CloudFront behaviors separated static and dynamic traffic:
 - VPC endpoints allow private EC2 instances to communicate with AWS Systems Manager.
 - Troubleshooting each layer independently helped isolate application, networking, and database connectivity issues.
 
-  
+
+## Repository Structure
+
+```text
+AWS-CloudFront-Private-3-Tier-Architecture/
+├── README.md
+└── screenshots/
+    ├── troubleshooting/
+    │   └── README.md
+    └── validation/
+        ├── README.md
+        └── project screenshots
